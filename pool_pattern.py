@@ -53,7 +53,7 @@ class Client():
 
 class Auditory():
 
-    def audit():
+    def audit(self):
         browserPool = Pool(1)
         auditory = Client()
         auditory.run_analysis(browserPool)
