@@ -4,7 +4,7 @@ from PyQt5.QtGui import QPixmap
 class AngryBird_ext():
     _x = 0
     _y = 0
-    _delta = 10
+    _delta = 30
     _orientation = 'right'
     _state_intr = None
     _limits = (800, 600)
@@ -21,6 +21,11 @@ class AngryBird_ext():
         delta = speed if speed else self._delta
         self._x += delta
         self.orientation = 'right'
+        return (self._x, self._y)
+
+    def go_left(self, speed=False):
+        delta = speed if speed else self._delta
+        self._x -= delta
         return (self._x, self._y)
 
 

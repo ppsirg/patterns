@@ -29,3 +29,11 @@ class Player_Angrybird():
         self._y += self._delta
         self._orientation = 'down'
         return (self._x, self._y)
+
+    def move_left(self):
+        self._x -= self._delta
+        return (self._x, self._y)
+    
+    def move_right(self):
+        self._x += self._delta
+        return (self._x, self._y)
