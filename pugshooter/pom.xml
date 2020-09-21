@@ -1,0 +1,52 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>game.core</groupId>
+  <artifactId>pugshooter</artifactId>
+  <packaging>jar</packaging>
+  <version>1.0-SNAPSHOT</version>
+  <name>pugshooter</name>
+  <url>http://maven.apache.org</url>
+
+<properties>
+    <!-- JMonkey stats -->
+    <jme3_g>org.jmonkeyengine</jme3_g>
+    <!-- Check the last version -->
+    <jme3_v>3.3.0-stable</jme3_v>
+</properties>
+
+<repositories>
+    <!-- Repository for JMonkey Engine dependences -->
+    <repository>
+        <id>jcenter</id>
+        <url>https://jcenter.bintray.com/</url>
+    </repository>
+</repositories>
+
+<dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+    <!-- JMonkey Engine dependences  -->
+    <dependency>
+        <groupId>${jme3_g}</groupId>
+        <artifactId>jme3-core</artifactId>
+        <version>${jme3_v}</version>
+    </dependency>
+    <dependency>
+        <groupId>${jme3_g}</groupId>
+        <artifactId>jme3-desktop</artifactId>
+        <version>${jme3_v}</version>
+    </dependency>
+    <dependency>
+        <groupId>${jme3_g}</groupId>
+        <artifactId>jme3-lwjgl3</artifactId>
+        <version>${jme3_v}</version>
+    </dependency>
+</dependencies>
+
+
+</project>
