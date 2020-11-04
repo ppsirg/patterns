@@ -1,10 +1,10 @@
 package mundo;
 
+import java.awt.*;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -14,12 +14,15 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Comparator;
 
+
+
+
 public class SurvivorCamp implements Cloneable, Comparator<Puntaje> {
 
 	/**
 	 * entero incambiable que representa los pixeles del ancho del juego
 	 */
-	public static final int ANCHO_PANTALLA = 1000;
+	public static final int ANCHO_PANTALLA = ReadScreenWidth();
 	/**
 	 * entero incambiable que representa los pixeles del alto del juego
 	 */
@@ -834,5 +837,20 @@ public class SurvivorCamp implements Cloneable, Comparator<Puntaje> {
 			if((caracter > 90 && caracter < 97) || caracter < 65 || caracter > 122)
 			throw new NombreInvalidoException(caracter);
 		}
+	}
+
+	public static int ReadScreenWidth(){
+		ScreenSizeContext context;
+		int SW = 0;
+		int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
+		if(screenWidth >1024){
+			context = new ScreenSizeContext(new ExtendedScreen());
+			SW = context.executeAdjustScreenSize(screenWidth);
+		}
+		else {
+			context = new ScreenSizeContext(new NormalScreen());
+			SW = context.executeAdjustScreenSize(1000);
+		}
+		return SW;
 	}
 }

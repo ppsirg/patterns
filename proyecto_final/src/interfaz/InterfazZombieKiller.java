@@ -1,9 +1,6 @@
 package interfaz;
 
-import java.awt.BorderLayout;
-import java.awt.Cursor;
-import java.awt.Point;
-import java.awt.Toolkit;
+import java.awt.*;
 import java.io.IOException;
 
 import javax.swing.DebugGraphics;
@@ -106,6 +103,7 @@ public class InterfazZombieKiller extends JFrame {
 		} catch (IOException e) {
 			JOptionPane.showMessageDialog(this, "No se han encontrado puntajes anteriores");
 		}
+
 		setSize(campo.ANCHO_PANTALLA, campo.ALTO_PANTALLA);
 
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -238,6 +236,7 @@ public class InterfazZombieKiller extends JFrame {
 		InterfazZombieKiller inter = new InterfazZombieKiller();
 		inter.setVisible(true);
 		inter.setLocationRelativeTo(null);
+
 	}
 
 	/**
