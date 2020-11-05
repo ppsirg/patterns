@@ -129,8 +129,20 @@ public class PanelCamp extends JPanel implements MouseListener, KeyListener {
 	protected void paintComponent(Graphics arg0) {
 		super.paintComponent(arg0);
 
+		int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
 		Image fondo = Toolkit.getDefaultToolkit()
 				.getImage(this.getClass().getResource("/img/Fondo/escenario-fondo-azul.png"));
+		if (screenWidth>1024){
+			fondo = fondo.getScaledInstance(screenWidth,720,Image.SCALE_SMOOTH);
+		}
+		// wait for image to be ready
+		MediaTracker tracker = new MediaTracker(new java.awt.Container());
+		tracker.addImage(fondo, 0);
+		try {
+			tracker.waitForAll();
+		} catch (InterruptedException ex) {
+			throw new RuntimeException("Image loading interrupted", ex);
+		}
 		arg0.drawImage(fondo, 0, 0, null);
 
 		// System.out.println(chombis.size());
@@ -185,7 +197,7 @@ public class PanelCamp extends JPanel implements MouseListener, KeyListener {
 		if (principal.getEstadoPartida() == SurvivorCamp.INICIANDO_RONDA) {
 			fondo = Toolkit.getDefaultToolkit()
 					.getImage(getClass().getResource("/img/Palabras/ronda" + principal.darRondaActual() + ".png"));
-			arg0.drawImage(fondo, 100, 300, null);
+			arg0.drawImage(fondo, ((screenWidth/2)-(fondo.getWidth(null)/2)), 300, null);
 		}
 	}
 
