@@ -1,9 +1,6 @@
 package interfaz;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.GridLayout;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -11,12 +8,9 @@ import java.awt.event.MouseListener;
 import java.net.URL;
 import java.util.ArrayList;
 
-import javax.swing.ButtonGroup;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
+import javax.swing.*;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableModel;
 
 import mundo.Puntaje;
 
@@ -74,10 +68,49 @@ public class PanelPuntajes extends JPanel implements ActionListener {
 		if (scores.size() != 0) {
 			removeAll();
 			add(titulo, BorderLayout.NORTH);
-			generaryAgregarLabels(scores);
+			//generaryAgregarLabels(scores);
+			generarTablaPuntajes(scores);
 			generarYAgregarBotones();
 			updateUI();
 		}
+	}
+
+	private void generarTablaPuntajes(ArrayList<Puntaje> scores){
+		String [] columnNames = {"Nombre","Score", "Bajas", "Headshot"};
+		Object[][] data = new Object[scores.size()][columnNames.length];
+		for (int i=0; i<scores.size();i++){
+			data[i][0]= scores.get(i).getNombreKiller();
+			data[i][1]= scores.get(i).getPuntaje();
+			data[i][2]= scores.get(i).getBajas();
+			data[i][3]= scores.get(i).getTirosALaCabeza();
+		}
+
+
+		TableModel tableModel = new AbstractTableModel() {
+			public String getColumnName(int col) {
+				return columnNames[col].toString();
+			}
+			public int getRowCount() { return data.length; }
+			public int getColumnCount() { return columnNames.length; }
+			public Object getValueAt(int row, int col) {
+				return data[row][col];
+			}
+			public boolean isCellEditable(int row, int col)
+			{ return false; }
+			public Class getColumnClass(int c) {
+				return getValueAt(0, c).getClass();
+			}
+
+		};
+
+		JTable table = new JTable(tableModel);
+		table.setAutoCreateRowSorter(true);
+		JScrollPane scrollPane = new JScrollPane(table);
+		table.setFillsViewportHeight(true);
+		JPanel auxTabla = new JPanel();
+		auxTabla.setBackground(Color.BLACK);
+		auxTabla.add(scrollPane);
+		add(auxTabla, BorderLayout.CENTER);
 	}
 
 	private void generaryAgregarLabels(ArrayList<Puntaje> scores) {
@@ -120,17 +153,17 @@ public class PanelPuntajes extends JPanel implements ActionListener {
 		}
 		add(auxPuntajes, BorderLayout.CENTER);
 	}
-	
+
 	private void generarYAgregarBotones () {
 		JPanel auxBotones = new JPanel();
 		auxBotones.setBackground(Color.black);
-		auxBotones.setLayout(new GridLayout(5, 1));
-		auxBotones.add(butFiltroHeadShot);
-		auxBotones.add(butFiltroBajas);
-		auxBotones.add(butFiltroScore);
-		auxBotones.add(butBuscarNombre);
-		auxBotones.add(butSalir);
-		add(auxBotones, BorderLayout.SOUTH);
+		//auxBotones.setLayout(new GridLayout(5, 1));
+		//auxBotones.add(butFiltroHeadShot);
+		//auxBotones.add(butFiltroBajas);
+		//auxBotones.add(butFiltroScore);
+		//auxBotones.add(butBuscarNombre);
+		//auxBotones.add(butSalir);
+		add(butSalir, BorderLayout.SOUTH);
 	}
 
 	public void mostrarPuntajeDe(Puntaje buscado) {
@@ -145,6 +178,7 @@ public class PanelPuntajes extends JPanel implements ActionListener {
 			ArrayList<Puntaje> aMostrar = new ArrayList<>();
 			aMostrar.add(buscado);
 			generaryAgregarLabels(aMostrar);
+			//generarTablaPuntajes(aMostrar);
 			updateUI();
 		} else
 			JOptionPane.showMessageDialog(this, "No se encontró el nombre buscado en los puntajes");

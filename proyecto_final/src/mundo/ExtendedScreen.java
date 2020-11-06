@@ -1,7 +1,4 @@
 package mundo;
-import interfaz.InterfazZombieKiller;
-import interfaz.PanelMenu;
-
 
 public class ExtendedScreen implements AdjustScreenSize {
 
