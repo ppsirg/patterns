@@ -1,12 +1,11 @@
 package hilo;
 
 import interfaz.InterfazZombieKiller;
-import mundo.Boss;
-import mundo.Caminante;
-import mundo.Enemigo;
-import mundo.Rastrero;
+import mundo.Personajes.Caminante;
+import mundo.Personajes.Enemigo;
+import mundo.Personajes.Rastrero;
 import mundo.SurvivorCamp;
-import mundo.Zombie;
+import mundo.Personajes.Zombie;
 
 public class HiloEnemigo extends Thread {
 

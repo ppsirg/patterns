@@ -13,13 +13,13 @@ import hilo.HiloBoss;
 import hilo.HiloEnemigo;
 import hilo.HiloGeneradorDeZombies;
 import hilo.HiloSonido;
-import mundo.ArmaDeFuego;
-import mundo.Boss;
+import mundo.Armas.ArmaDeFuego;
+import mundo.Personajes.Boss;
 import mundo.NombreInvalidoException;
 import mundo.Puntaje;
-import mundo.Remington;
+import mundo.Armas.Remington;
 import mundo.SurvivorCamp;
-import mundo.Zombie;
+import mundo.Personajes.Zombie;
 
 public class InterfazZombieKiller extends JFrame {
 

@@ -7,12 +7,11 @@ import java.awt.GridLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
-import javax.swing.plaf.basic.BasicRootPaneUI;
 
-import mundo.Boss;
-import mundo.Granada;
-import mundo.Remington;
-import mundo.Zombie;
+import mundo.Personajes.Boss;
+import mundo.Armas.Granada;
+import mundo.Armas.Remington;
+import mundo.Personajes.Zombie;
 
 public class PanelAtributos extends JPanel {
 

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import junit.framework.TestCase;
 import mundo.Puntaje;
 import mundo.SurvivorCamp;
-import mundo.Zombie;
+import mundo.Personajes.Zombie;
 
 public class SurvivorCampTest extends TestCase{
 

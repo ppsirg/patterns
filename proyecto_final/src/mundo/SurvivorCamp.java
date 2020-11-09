@@ -1,5 +1,14 @@
 package mundo;
 
+import mundo.Armas.Arma;
+import mundo.Armas.Cuchillo;
+import mundo.Factory.AbstractFactory;
+import mundo.Factory.FactoryProvider;
+import mundo.Pantalla.ExtendedScreen;
+import mundo.Pantalla.NormalScreen;
+import mundo.Pantalla.ScreenSizeContext;
+import mundo.Personajes.*;
+
 import java.awt.*;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -96,6 +105,14 @@ public class SurvivorCamp implements Cloneable, Comparator<Puntaje> {
 	 * mejoresPuntajes pero están ordenados por Score
 	 */
 	private Puntaje raizPuntajes;
+	/**
+	 * Instancia la fábrica de Zombies
+	 */
+	AbstractFactory ZombieFactory = FactoryProvider.getFactory("ZombieFactory");
+	/**
+	 * Instancia la fábrica de Boss
+	 */
+	AbstractFactory BossFactory = FactoryProvider.getFactory("BossFactory");
 
 	/**
 	 * Constructor de la clase principal del mundo
@@ -183,7 +200,8 @@ public class SurvivorCamp implements Cloneable, Comparator<Puntaje> {
 	 * @return jefe creado
 	 */
 	public Boss generarBoss() {
-		jefe = new Boss();
+		short level = 0;
+		jefe = (mundo.Personajes.Boss) BossFactory.getBoss("BossFactory",(byte) 0);
 		return jefe;
 	}
 
@@ -203,12 +221,14 @@ public class SurvivorCamp implements Cloneable, Comparator<Puntaje> {
 			tipoZombie = (int) (Math.random() * 2);
 		else if (level == 6 || level == 9)
 			tipoZombie = 1;
+
+
 		Zombie aGenerar;
 
 		if (tipoZombie == 1)
-			aGenerar = ZombieFactory.getZombie("Rastrero",level,zombNodoLejano);
+			aGenerar = (Zombie) ZombieFactory.getEnemy("Rastero", level,zombNodoLejano);
 		else
-			aGenerar = ZombieFactory.getZombie("Caminante",level,zombNodoLejano);
+			aGenerar = (Zombie) ZombieFactory.getEnemy("Caminante",level,zombNodoLejano);
 
 		aGenerar.introducirse(zombNodoLejano.getAlFrente(), zombNodoLejano);
 		cantidadZombiesGenerados++;
@@ -464,7 +484,7 @@ public class SurvivorCamp implements Cloneable, Comparator<Puntaje> {
 	 */
 	private void cargaBossSiExiste(int ronda, byte salud) {
 		if (ronda == 10) {
-			jefe = new Boss(salud);
+			jefe = (mundo.Personajes.Boss) BossFactory.getBoss("BossFactory",salud);
 			zombNodoCercano.setAtras(zombNodoLejano);
 			zombNodoLejano.setAlFrente(zombNodoCercano);
 		}
@@ -539,6 +559,7 @@ public class SurvivorCamp implements Cloneable, Comparator<Puntaje> {
 			throw new IOException(
 					"Error al guardar el archivo, es posible que haya abierto el juego desde \"Acceso rápido\"");
 		}
+
 	}
 
 	/**
