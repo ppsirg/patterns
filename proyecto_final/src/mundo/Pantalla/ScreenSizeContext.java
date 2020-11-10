@@ -7,7 +7,7 @@ public class ScreenSizeContext {
         this.strategy=strategy;
     }
 
-    public int executeAdjustScreenSize(int width){
-        return strategy.UpdateSizeVariables(width);
+    public int executeAdjustScreenSize(){
+        return strategy.UpdateSizeVariables();
     }
 }

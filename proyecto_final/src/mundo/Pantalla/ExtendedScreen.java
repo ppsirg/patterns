@@ -1,9 +1,10 @@
 package mundo.Pantalla;
 
+import java.awt.*;
+
 public class ExtendedScreen implements AdjustScreenSize {
 
-    public int UpdateSizeVariables(int width) {
-        width=width;
-        return  width;
+    public int UpdateSizeVariables() {
+        return Toolkit.getDefaultToolkit().getScreenSize().width;
     }
 }

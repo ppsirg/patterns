@@ -4,7 +4,9 @@ import mundo.Armas.*;
 import mundo.Personajes.Enemigo;
 import mundo.Personajes.Zombie;
 
-public class WeaponFactory extends AbstractFactory {
+import java.io.Serializable;
+
+public class WeaponFactory extends AbstractFactory implements Serializable {
     @Override
     public Enemigo getBoss(String type, byte Salud) {
         return null;

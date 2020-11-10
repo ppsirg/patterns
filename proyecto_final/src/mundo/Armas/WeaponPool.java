@@ -4,10 +4,11 @@ import mundo.Factory.AbstractFactory;
 import mundo.Factory.FactoryProvider;
 import mundo.Factory.WeaponFactory;
 
+import java.io.Serializable;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
-public class WeaponPool {
+public class WeaponPool implements Serializable {
 
     private int size;
 

@@ -4,6 +4,7 @@ import mundo.Armas.Arma;
 import mundo.Armas.Cuchillo;
 import mundo.Factory.AbstractFactory;
 import mundo.Factory.FactoryProvider;
+import mundo.Memento.MementoCareTaker;
 import mundo.Pantalla.ExtendedScreen;
 import mundo.Pantalla.NormalScreen;
 import mundo.Pantalla.ScreenSizeContext;
@@ -113,6 +114,11 @@ public class SurvivorCamp implements Cloneable, Comparator<Puntaje> {
 	 * Instancia la fábrica de Boss
 	 */
 	AbstractFactory BossFactory = FactoryProvider.getFactory("BossFactory");
+	/**
+	 * Instancia el CareTaker para el objeto Personaje
+	 */
+	MementoCareTaker PersonajeCareTaker = new MementoCareTaker();
+
 
 	/**
 	 * Constructor de la clase principal del mundo
@@ -200,8 +206,7 @@ public class SurvivorCamp implements Cloneable, Comparator<Puntaje> {
 	 * @return jefe creado
 	 */
 	public Boss generarBoss() {
-		short level = 0;
-		jefe = (mundo.Personajes.Boss) BossFactory.getBoss("BossFactory",(byte) 0);
+		jefe = (mundo.Personajes.Boss) BossFactory.getBoss("Boss",(byte) 0);
 		return jefe;
 	}
 
@@ -226,7 +231,7 @@ public class SurvivorCamp implements Cloneable, Comparator<Puntaje> {
 		Zombie aGenerar;
 
 		if (tipoZombie == 1)
-			aGenerar = (Zombie) ZombieFactory.getEnemy("Rastero", level,zombNodoLejano);
+			aGenerar = (Zombie) ZombieFactory.getEnemy("Rastrero", level,zombNodoLejano);
 		else
 			aGenerar = (Zombie) ZombieFactory.getEnemy("Caminante",level,zombNodoLejano);
 
@@ -387,31 +392,25 @@ public class SurvivorCamp implements Cloneable, Comparator<Puntaje> {
 	 */
 	public SurvivorCamp cargarPartida() throws Exception {
 		File carpeta = new File(System.getProperty("user.dir") + "/PartidasGuardadas");
-		File archivoPersonaje = new File(carpeta.getAbsolutePath() + "/personaje.txt");
+		personaje = PersonajeCareTaker.popMemento();
 		try {
-			ObjectInputStream oIS = new ObjectInputStream(new FileInputStream(archivoPersonaje));
-			Personaje personaje = (Personaje) oIS.readObject();
-			oIS.close();
 			cargarDatosCampo(carpeta, personaje);
-		} catch (IOException e) {
-			throw new Exception(
-					"No se ha encontrado una partida guardada o es posible que haya abierto el juego desde \"Acceso rápido\"");
 		} catch (DatosErroneosException e) {
 			throw new Exception(e.getMessage());
 		} catch (NumberFormatException e) {
-			throw new Exception("En el archivo hay caracteres donde deberían haber números");
+			throw new Exception("En el archivo hay caracteres donde deber?an haber n?meros");
 		}
 		return (SurvivorCamp) clone();
 	}
 
 	/**
 	 * carga los datos de los enemigos del archivo de texto plano
-	 * 
+	 *
 	 * @param carpeta
 	 * @param personaje
-	 *            para asignarselo a la partida si todos los datos son válidos
+	 *            para asignarselo a la partida si todos los datos son v?lidos
 	 * @throws Exception
-	 *             si hay información inválida
+	 *             si hay informaci?n inv?lida
 	 */
 	private void cargarDatosCampo(File carpeta, Personaje personaje) throws Exception {
 		File datosZombie = new File(carpeta.getAbsolutePath() + "/zombies.txt");
@@ -539,68 +538,19 @@ public class SurvivorCamp implements Cloneable, Comparator<Puntaje> {
 	}
 
 	/**
-	 * guarda la partida actual
+	 * guarda la partida actual usando el patrón Memento
 	 * 
 	 * @throws IOException
 	 *             en caso de que el jugador abra el ejecutable desde una
 	 *             carpeta inválida
 	 */
 	public void guardarPartida() throws IOException {
-		File carpeta = new File(System.getProperty("user.dir") + "/PartidasGuardadas");
-		File archivoPersonaje = new File(carpeta.getAbsolutePath() + "/personaje.txt");
-		if (!carpeta.exists())
-			carpeta.mkdirs();
-		ObjectOutputStream escritor = new ObjectOutputStream(new FileOutputStream(archivoPersonaje));
-		escritor.writeObject(personaje);
-		escritor.close();
-		try {
-			guardarDatosCampo(carpeta);
-		} catch (IOException e) {
-			throw new IOException(
-					"Error al guardar el archivo, es posible que haya abierto el juego desde \"Acceso rápido\"");
-		}
-
+		PersonajeCareTaker.pushMemento(personaje,jefe,zombNodoCercano);
 	}
 
-	/**
-	 * escribe los datos de los enemigos
-	 * 
-	 * @param carpeta
-	 *            carpeta en la que se va a guardar el archivo
-	 * @throws IOException
-	 *             en caso de que ocurra un error inesperado
-	 */
-	private void guardarDatosCampo(File carpeta) throws IOException {
-		File datosZombie = new File(carpeta.getAbsolutePath() + "/zombies.txt");
-		BufferedWriter bW = new BufferedWriter(new FileWriter(datosZombie));
-		String texto = "/salud/posX/posY/estado/frame/dirX/dirY";
-		if (jefe != null)
-			texto += "\n" + jefe.getSalud();
-		else
-			texto = escribirDatosZombie(texto, zombNodoCercano.getAtras());
 
-		bW.write(texto);
-		bW.close();
-	}
 
-	/**
-	 * escribe los datos de los zombies de manera recursiva
-	 * 
-	 * @param datos
-	 * @param actual
-	 * @return el texto con la información de los zombies
-	 */
-	private String escribirDatosZombie(String datos, Zombie actual) {
-		if (actual.getEstadoActual().equals(Zombie.NODO))
-			return datos;
-		datos += "\n" + actual.getSalud() + "_" + actual.getPosX() + "_" + actual.getPosY() + "_"
-				+ actual.getEstadoActual() + "_" + actual.getFrameActual();
-		if (actual instanceof Caminante) {
-			datos += "_" + ((Caminante) actual).getDireccionX();
-			datos += "_" + ((Caminante) actual).getDireccionY();
-		}
-		return escribirDatosZombie(datos, actual.getAtras());
-	}
+
 
 	/**
 	 * cambia el arma del personaje, en esta versión solo tiene 2 armas em total
@@ -863,14 +813,14 @@ public class SurvivorCamp implements Cloneable, Comparator<Puntaje> {
 	public static int ReadScreenWidth(){
 		ScreenSizeContext context;
 		int SW = 0;
-		int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
+		int screenWidth=Toolkit.getDefaultToolkit().getScreenSize().width;
 		if(screenWidth >1024){
 			context = new ScreenSizeContext(new ExtendedScreen());
-			SW = context.executeAdjustScreenSize(screenWidth);
+			SW = context.executeAdjustScreenSize();
 		}
 		else {
 			context = new ScreenSizeContext(new NormalScreen());
-			SW = context.executeAdjustScreenSize(1000);
+			SW = context.executeAdjustScreenSize();
 		}
 		return SW;
 	}
