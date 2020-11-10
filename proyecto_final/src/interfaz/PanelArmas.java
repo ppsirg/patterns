@@ -1,14 +1,10 @@
 package interfaz;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 import mundo.Armas.Cuchillo;
 import mundo.Armas.Granada;
@@ -19,7 +15,8 @@ public class PanelArmas extends JPanel implements ActionListener{
 
 	private static final String ANTERIOR = "a";
 	private static final String POSTERIOR = "p";
-	
+
+	private JLabel titulo;
 	private JLabel [] labArmas;
 	private PanelAtributos [] panelAtributos;
 	private JButton butAnterior;
@@ -40,7 +37,28 @@ public class PanelArmas extends JPanel implements ActionListener{
 //		JPanel auxSur= new JPanel();
 //		auxSur.setLayout(new BorderLayout());
 //		auxSur.setBackground(Color.BLACK);
-		
+
+		titulo = new JLabel("Armas");
+		titulo.setHorizontalAlignment(SwingConstants.CENTER);
+		titulo.setFont(new Font("Chiller", Font.ITALIC, 30));
+		titulo.setForeground(Color.WHITE);
+
+		JTabbedPane tabbedPane = new JTabbedPane();
+		JPanel panel1, panel2, panel3, panel4, panel5;
+		panel1 = new JPanel();
+		panel1.setBackground(Color.BLACK);
+		panel2 = new JPanel();
+		panel2.setBackground(Color.BLACK);
+		panel3 = new JPanel();
+		panel3.setBackground(Color.BLACK);
+		panel4 = new JPanel();
+		panel4.setBackground(Color.BLACK);
+
+		tabbedPane.addTab("Cuchillo", panel1);
+		tabbedPane.addTab("Granada ", panel2);
+		tabbedPane.addTab("M1911", panel3);
+		tabbedPane.addTab("Remington ", panel4);
+
 		labArmas = new JLabel[4];
 		panelAtributos = new PanelAtributos[4];
 		
@@ -67,16 +85,19 @@ public class PanelArmas extends JPanel implements ActionListener{
 		
 		inicializarAtributos();
 		
-		add(labArmas[1], BorderLayout.CENTER);
-		add(panelAtributos[1], BorderLayout.SOUTH);
-		add(labArmas[2], BorderLayout.CENTER);
-		add(panelAtributos[2], BorderLayout.SOUTH);
-		add(labArmas[3], BorderLayout.CENTER);
-		add(panelAtributos[3], BorderLayout.SOUTH);
-		add(labArmas[0], BorderLayout.CENTER);
-		add(panelAtributos[0], BorderLayout.SOUTH);
-		add(butAnterior, BorderLayout.WEST);
-		add(butPosterior, BorderLayout.EAST);
+		panel3.add(labArmas[1], BorderLayout.CENTER);
+		panel3.add(panelAtributos[1], BorderLayout.SOUTH);
+		panel2.add(labArmas[2], BorderLayout.CENTER);
+		panel2.add(panelAtributos[2], BorderLayout.SOUTH);
+		panel1.add(labArmas[3], BorderLayout.CENTER);
+		panel1.add(panelAtributos[3], BorderLayout.SOUTH);
+		panel4.add(labArmas[0], BorderLayout.CENTER);
+		panel4.add(panelAtributos[0], BorderLayout.SOUTH);
+		//add(butAnterior, BorderLayout.WEST);
+		//add(butPosterior, BorderLayout.EAST);
+
+		add(titulo,BorderLayout.NORTH);
+		add(tabbedPane,BorderLayout.CENTER);
 	}
 	
 	public void inicializarAtributos () {
