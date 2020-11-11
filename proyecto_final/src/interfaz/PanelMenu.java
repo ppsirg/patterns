@@ -1,19 +1,17 @@
 package interfaz;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.GridLayout;
-import java.awt.Image;
-import java.awt.Toolkit;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.net.URL;
 
+import javax.imageio.ImageIO;
 import javax.swing.DebugGraphics;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -110,7 +108,19 @@ public class PanelMenu extends JPanel implements KeyListener, ActionListener, Mo
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		requestFocusInWindow();
+		int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
 		Image Palabras = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/Fondo/fondoMenu.png"));
+		if (screenWidth>1024){
+			Palabras = Palabras.getScaledInstance(screenWidth, (int) (screenWidth*0.72),Image.SCALE_SMOOTH);
+		}
+		// wait for image to be ready
+		MediaTracker tracker = new MediaTracker(new java.awt.Container());
+		tracker.addImage(Palabras, 0);
+		try {
+			tracker.waitForAll();
+		} catch (InterruptedException ex) {
+			throw new RuntimeException("Image loading interrupted", ex);
+		}
 		g.drawImage(Palabras, 0, 0, null);
 		
 		if(principal.getEstadoPartida()==SurvivorCamp.PAUSADO) {
