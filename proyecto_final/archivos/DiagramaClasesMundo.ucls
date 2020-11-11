@@ -19,7 +19,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="3" language="java" name="mundo.NombreInvalidoException" project="ProyectoFinalZombieKiller" 
+  <class id="3" language="java" name="mundo.Exceptions.NombreInvalidoException" project="ProyectoFinalZombieKiller"
     file="/ProyectoFinalZombieKiller/src/mundo/NombreInvalidoException.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="78" width="173" x="341" y="-130"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -55,7 +55,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="7" language="java" name="mundo.DatosErroneosException" project="ProyectoFinalZombieKiller" 
+  <class id="7" language="java" name="mundo.Exceptions.DatosErroneosException" project="ProyectoFinalZombieKiller"
     file="/ProyectoFinalZombieKiller/src/mundo/DatosErroneosException.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="96" width="167" x="554" y="-130"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -109,7 +109,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="13" language="java" name="mundo.ComparadorPuntajePorNombre" project="ProyectoFinalZombieKiller" 
+  <class id="13" language="java" name="mundo.Puntajes.ComparadorPuntajePorNombre" project="ProyectoFinalZombieKiller"
     file="/ProyectoFinalZombieKiller/src/mundo/ComparadorPuntajePorNombre.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="96" width="204" x="761" y="-130"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -172,7 +172,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="20" language="java" name="mundo.Puntaje" project="ProyectoFinalZombieKiller" 
+  <class id="20" language="java" name="mundo.Puntajes.Puntaje" project="ProyectoFinalZombieKiller"
     file="/ProyectoFinalZombieKiller/src/mundo/Puntaje.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="777" y="141"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 

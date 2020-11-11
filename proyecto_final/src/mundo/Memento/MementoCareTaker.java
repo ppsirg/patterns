@@ -1,11 +1,11 @@
 package mundo.Memento;
 
-import mundo.DatosErroneosException;
 import mundo.Personajes.Boss;
 import mundo.Personajes.Caminante;
 import mundo.Personajes.Personaje;
 import mundo.Personajes.Zombie;
 import mundo.SurvivorCamp;
+
 
 import java.io.*;
 import java.util.Stack;
@@ -32,6 +32,7 @@ public class MementoCareTaker {
         ObjectOutputStream escritor = new ObjectOutputStream(new FileOutputStream(archivoPersonaje));
         escritor.writeObject(memento);
         escritor.close();
+        SurvivorCamp.events.notify("Write", archivoPersonaje);
         try {
             guardarDatosCampo(carpeta, jefe , zombNodoCercano);
         } catch (IOException e) {
@@ -58,6 +59,7 @@ public class MementoCareTaker {
             ObjectInputStream oIS = new ObjectInputStream(new FileInputStream(archivoPersonaje));
             Personaje personaje = (Personaje) oIS.readObject();
             oIS.close();
+            SurvivorCamp.events.notify("Read",archivoPersonaje);
             p = personaje;
         } catch (IOException e) {
             throw new Exception(
@@ -85,6 +87,7 @@ public class MementoCareTaker {
 
         bW.write(texto);
         bW.close();
+        SurvivorCamp.events.notify("Write",datosZombie);
     }
 
     /**
