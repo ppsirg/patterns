@@ -1,1 +1,3 @@
 /salud/posX/posY/estado/frame/dirX/dirY
+3_747_188_caminando_24_4_2
+3_440_143_caminando_3_-3_1

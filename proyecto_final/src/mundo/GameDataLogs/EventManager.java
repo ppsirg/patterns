@@ -1,4 +1,4 @@
-package mundo.Puntajes;
+package mundo.GameDataLogs;
 
 import java.io.File;
 import java.util.*;

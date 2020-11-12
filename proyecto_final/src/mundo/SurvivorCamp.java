@@ -11,9 +11,9 @@ import mundo.Pantalla.ExtendedScreen;
 import mundo.Pantalla.NormalScreen;
 import mundo.Pantalla.ScreenSizeContext;
 import mundo.Personajes.*;
-import mundo.Puntajes.ComparadorPuntajePorNombre;
-import mundo.Puntajes.EventManager;
-import mundo.Puntajes.Puntaje;
+import mundo.GameDataLogs.ComparadorPuntajePorNombre;
+import mundo.GameDataLogs.EventManager;
+import mundo.GameDataLogs.Puntaje;
 
 import java.awt.*;
 import java.io.BufferedReader;

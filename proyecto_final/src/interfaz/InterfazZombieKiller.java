@@ -16,10 +16,9 @@ import hilo.HiloSonido;
 import mundo.Armas.ArmaDeFuego;
 import mundo.Personajes.Boss;
 import mundo.Exceptions.NombreInvalidoException;
-import mundo.Puntajes.EmailNotificationListener;
 
-import mundo.Puntajes.FileOperationListener;
-import mundo.Puntajes.Puntaje;
+import mundo.GameDataLogs.FileOperationListener;
+import mundo.GameDataLogs.Puntaje;
 import mundo.Armas.Remington;
 import mundo.SurvivorCamp;
 import mundo.Personajes.Zombie;

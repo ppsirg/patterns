@@ -1,6 +1,4 @@
-package mundo.Puntajes;
-
-import mundo.Puntajes.Puntaje;
+package mundo.GameDataLogs;
 
 import java.util.Comparator;
 
