@@ -2,6 +2,8 @@ package mundo;
 
 import mundo.Armas.Arma;
 import mundo.Armas.Cuchillo;
+import mundo.Exceptions.DatosErroneosException;
+import mundo.Exceptions.NombreInvalidoException;
 import mundo.Factory.AbstractFactory;
 import mundo.Factory.FactoryProvider;
 import mundo.Memento.MementoCareTaker;
@@ -9,15 +11,16 @@ import mundo.Pantalla.ExtendedScreen;
 import mundo.Pantalla.NormalScreen;
 import mundo.Pantalla.ScreenSizeContext;
 import mundo.Personajes.*;
+import mundo.Puntajes.ComparadorPuntajePorNombre;
+import mundo.Puntajes.EventManager;
+import mundo.Puntajes.Puntaje;
 
 import java.awt.*;
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -107,6 +110,13 @@ public class SurvivorCamp implements Cloneable, Comparator<Puntaje> {
 	 */
 	private Puntaje raizPuntajes;
 	/**
+	 * EventManager para los eventos Write & Read de los archivos para Cargar
+	 * y Guardar la partida
+	 */
+	public static EventManager events;
+
+
+	/**
 	 * Instancia la fábrica de Zombies
 	 */
 	AbstractFactory ZombieFactory = FactoryProvider.getFactory("ZombieFactory");
@@ -136,6 +146,7 @@ public class SurvivorCamp implements Cloneable, Comparator<Puntaje> {
 		zombNodoLejano.setAlFrente(zombNodoCercano);
 		zombNodoCercano.setAtras(zombNodoLejano);
 		mejoresPuntajes = new ArrayList<>();
+		this.events = new EventManager("Read","Write");
 	}
 
 	/**
@@ -367,6 +378,7 @@ public class SurvivorCamp implements Cloneable, Comparator<Puntaje> {
 		ObjectInputStream oIS = new ObjectInputStream(new FileInputStream(archivoPuntajes));
 		Puntaje puntaje = (Puntaje) oIS.readObject();
 		actualizarPuntajes(puntaje);
+		events.notify("Read",archivoPuntajes);
 	}
 
 	/**
@@ -383,8 +395,9 @@ public class SurvivorCamp implements Cloneable, Comparator<Puntaje> {
 	}
 
 	/**
-	 * carga la última partida guardada devuelve la partida clonada porque la
-	 * actual pasa a estar sin juego y así elimina los hilos en ejecución
+	 * carga la última partida guardada usanado el patrón Memento
+	 * devuelve la partida clonada porque la actual pasa a estar sin juego
+	 * y así elimina los hilos en ejecución
 	 * 
 	 * @return una partida con las características de la nueva partida
 	 * @throws Exception
@@ -462,6 +475,7 @@ public class SurvivorCamp implements Cloneable, Comparator<Puntaje> {
 			lineaActual = bR.readLine();
 		}
 		bR.close();
+		events.notify("Read", datosZombie);
 		int zombiesExcedidos = contadorZombiesEnPantalla + (personaje.getMatanza() % NUMERO_ZOMBIES_RONDA)
 				- NUMERO_ZOMBIES_RONDA;
 		if (zombiesExcedidos > 0)
@@ -547,9 +561,6 @@ public class SurvivorCamp implements Cloneable, Comparator<Puntaje> {
 	public void guardarPartida() throws IOException {
 		PersonajeCareTaker.pushMemento(personaje,jefe,zombNodoCercano);
 	}
-
-
-
 
 
 	/**
@@ -686,6 +697,7 @@ public class SurvivorCamp implements Cloneable, Comparator<Puntaje> {
 		ObjectOutputStream escritor = new ObjectOutputStream(new FileOutputStream(archivoPuntajes));
 		escritor.writeObject(raizPuntajes);
 		escritor.close();
+		events.notify("Write",archivoPuntajes);
 	}
 
 	/**

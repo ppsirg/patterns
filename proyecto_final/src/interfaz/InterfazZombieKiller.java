@@ -15,8 +15,11 @@ import hilo.HiloGeneradorDeZombies;
 import hilo.HiloSonido;
 import mundo.Armas.ArmaDeFuego;
 import mundo.Personajes.Boss;
-import mundo.NombreInvalidoException;
-import mundo.Puntaje;
+import mundo.Exceptions.NombreInvalidoException;
+import mundo.Puntajes.EmailNotificationListener;
+
+import mundo.Puntajes.FileOperationListener;
+import mundo.Puntajes.Puntaje;
 import mundo.Armas.Remington;
 import mundo.SurvivorCamp;
 import mundo.Personajes.Zombie;
@@ -96,6 +99,9 @@ public class InterfazZombieKiller extends JFrame {
 		add(panelMenu, BorderLayout.CENTER);
 
 		campo = new SurvivorCamp();
+		campo.events.subscribe("Read",new FileOperationListener("/PartidasGuardadas/logfile.txt"));
+		campo.events.subscribe("Write", new FileOperationListener("/PartidasGuardadas/logfile.txt"));
+
 		try {
 			campo.cargarPuntajes();
 		} catch (ClassNotFoundException e) {
