@@ -12,7 +12,7 @@ import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
 
-import mundo.Puntajes.Puntaje;
+import mundo.GameDataLogs.Puntaje;
 
 public class PanelPuntajes extends JPanel implements ActionListener {
 

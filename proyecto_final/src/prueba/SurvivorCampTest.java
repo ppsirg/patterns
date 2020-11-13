@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import junit.framework.TestCase;
-import mundo.Puntajes.Puntaje;
+import mundo.GameDataLogs.Puntaje;
 import mundo.SurvivorCamp;
 import mundo.Personajes.Zombie;
 

@@ -1,4 +1,4 @@
-package mundo.Puntajes;
+package mundo.GameDataLogs;
 
 import java.io.File;
 
@@ -11,6 +11,6 @@ public class EmailNotificationListener implements EventListener {
 
     @Override
     public void update(String eventType, File file) {
-        System.out.println("Email to " + email + ": Someone has performed " + eventType + " operation with the following file: " + file.getName());
+        System.out.println("Email to " + email + ": ZombieKillerGame has performed " + eventType + " operation with the following file: " + file.getName());
     }
 }
