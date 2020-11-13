@@ -9,6 +9,9 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URL;
 
 import javax.imageio.ImageIO;
@@ -19,6 +22,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
+import mundo.GameDataLogs.Proxy.LogFile;
 import mundo.SurvivorCamp;
 
 public class PanelMenu extends JPanel implements KeyListener, ActionListener, MouseListener {
@@ -135,9 +139,36 @@ public class PanelMenu extends JPanel implements KeyListener, ActionListener, Mo
 
 	@Override
 	public void keyPressed(KeyEvent arg0) {
-//		System.out.println(arg0.getKeyCode());
+		//System.out.println(arg0.getKeyCode());
+
 		if (arg0.getKeyCode() == 80 && principal.getEstadoPartida()==SurvivorCamp.PAUSADO)
 			principal.pausarJuego();
+		if (arg0.getKeyCode() == 76){
+			File carpeta = new File(System.getProperty("user.dir") + "/PartidasGuardadas");
+			String plainlogfile = carpeta.getAbsolutePath() + "/logfile.txt";
+
+			LogFile logfile = LogFile.getLogFileInstance(plainlogfile);
+			System.out.println("LogFile's path is->"+logfile.getNameWithPath());
+			//Till here LogFileProxy instance is created with the RealLogFile instance in it being null
+			try{
+				System.out.println("LogFile's content --------->");
+				FileInputStream input = logfile.getFileContents();
+				// At this point an instance of RealLogFile has been created
+				// Now begins LogFileProxy reading
+				// Reads the first byte
+				int i = input.read();
+				while (i != -1) {
+					System.out.print((char) i);
+					// Reads next byte from the file
+					i = input.read();
+				}
+				input.close();
+			}catch(FileNotFoundException fnfe){
+				System.out.println("FileNotFoundException exception thrown");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	@Override

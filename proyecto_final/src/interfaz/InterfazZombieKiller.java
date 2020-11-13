@@ -1,6 +1,7 @@
 package interfaz;
 
 import java.awt.*;
+import java.awt.event.KeyListener;
 import java.io.IOException;
 
 import javax.swing.DebugGraphics;
@@ -91,6 +92,7 @@ public class InterfazZombieKiller extends JFrame {
 		setCursor(miraM1911);
 		panelCampo = new PanelCamp(this);
 		panelMenu = new PanelMenu(this);
+
 		panelComoJugar = new PanelComoJugar(this);
 		panelPuntajes = new PanelPuntajes(this);
 		panelCreditos = new PanelCreditos(this);
