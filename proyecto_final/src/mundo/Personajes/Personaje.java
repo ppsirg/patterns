@@ -2,6 +2,7 @@ package mundo.Personajes;
 
 import mundo.Armas.*;
 
+import javax.management.InstanceAlreadyExistsException;
 import java.io.Serializable;
 
 public class Personaje implements SerViviente, Serializable {
@@ -46,19 +47,23 @@ public class Personaje implements SerViviente, Serializable {
 	 * estado temporal que indica que fue herido
 	 */
 	private boolean ensangrentado;
-
-	WeaponPool WeaponPool = new WeaponPool(1);
+	/**
+	 * Instancia el pool de armas
+	 */
+	WeaponPool WeaponPool = mundo.Armas.WeaponPool.getInstance();
 
 	/**
 	 * Constructor del personaje cada vez que se inicia una partida
 	 * los valores no inicializados tienen por defecto 0
 	 */
-	private Personaje() {
+	public Personaje() {
+
 		salud = SALUD;
 		cuchillo = (Cuchillo) WeaponPool.get();
 		granadas = (Granada) WeaponPool.get();
 		armaPrincipal = (ArmaDeFuego) WeaponPool.get();
 		armaSecundaria = (ArmaDeFuego) WeaponPool.get();
+
 
 		// municion = principal.getLimBalas();
 	}
@@ -68,22 +73,8 @@ public class Personaje implements SerViviente, Serializable {
 		WeaponPool.release(granadas);
 		WeaponPool.release(armaPrincipal);
 		WeaponPool.release(armaSecundaria);
-		WeaponPool.shutdown();
 	}
 
-	/*
-		* Singleton Pattern of type Initialization-on-demand holder idiom
-		* https://en.wikipedia.org/wiki/Initialization-on-demand_holder_idiom
-	 */
-	/* static inner class */
-	private static class LazyHolder{
-		private static final Personaje Instance = new Personaje();
-	}
-
-	/* get instance of Personaje */
-	public static Personaje getInstance(){
-		return LazyHolder.Instance;
-	}
 	/**
 	 * obtiene el cuchillo del personaje
 	 * @return cuchillo 

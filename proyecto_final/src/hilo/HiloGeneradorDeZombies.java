@@ -55,7 +55,6 @@ public class HiloGeneradorDeZombies extends Thread {
 				}
 			}
 			if (campo.getPersonaje().getSalud() <= 0) {
-				campo.getPersonaje().releaseWeapons();
 				principal.reproducir("meMuero");
 				principal.juegoTerminado();
 			} else if (campo.getJefe() != null && campo.getJefe().getSalud() <= 0)
