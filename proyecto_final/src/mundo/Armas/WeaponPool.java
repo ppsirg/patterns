@@ -15,7 +15,7 @@ public class WeaponPool implements Serializable {
     private boolean shutdown;
 
     /**
-     * Instancia la fábrica de Boss
+     * Instancia la fábrica de Armas
      */
     AbstractFactory WeaponFactory = FactoryProvider.getFactory("WeaponFactory");
 

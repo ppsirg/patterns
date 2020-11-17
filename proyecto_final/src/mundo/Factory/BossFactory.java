@@ -19,7 +19,22 @@ public class BossFactory extends AbstractFactory {
     }
 
     @Override
-    public Enemigo getEnemy(String type, short level, Zombie zombNodoLejano) {
+    public Enemigo getZombie(String type) {
+        return null;
+    }
+
+    @Override
+    public Enemigo getZombie(String type, short level, Zombie zombNodoLejano) {
+        return null;
+    }
+
+    @Override
+    public Enemigo getZombie(String type, int posX, int posY, int direccionX, int direccionY, String estadoActual, byte frameActual, byte salud, int ronda) {
+        return null;
+    }
+
+    @Override
+    public Enemigo getZombie(String type, int posX, int posY, String estadoActual, byte frameActual, byte salud, int ronda) {
         return null;
     }
 
