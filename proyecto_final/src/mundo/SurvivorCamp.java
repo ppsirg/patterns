@@ -140,8 +140,8 @@ public class SurvivorCamp implements Cloneable, Comparator<Puntaje> {
 		rondaActual = 0;
 		// son caminantes auxiliares, sólo necesito las instancias del anterior
 		// y el de al frente
-		zombNodoLejano = new Caminante();
-		zombNodoCercano = new Caminante();
+		zombNodoLejano = (Zombie) ZombieFactory.getZombie("Caminante");
+		zombNodoCercano = (Zombie) ZombieFactory.getZombie("Caminante");
 		zombNodoLejano.setLentitud((short) 500);
 		zombNodoLejano.setAlFrente(zombNodoCercano);
 		zombNodoCercano.setAtras(zombNodoLejano);
@@ -242,9 +242,9 @@ public class SurvivorCamp implements Cloneable, Comparator<Puntaje> {
 		Zombie aGenerar;
 
 		if (tipoZombie == 1)
-			aGenerar = (Zombie) ZombieFactory.getEnemy("Rastrero", level,zombNodoLejano);
+			aGenerar = (Zombie) ZombieFactory.getZombie("Rastrero", level,zombNodoLejano);
 		else
-			aGenerar = (Zombie) ZombieFactory.getEnemy("Caminante",level,zombNodoLejano);
+			aGenerar = (Zombie) ZombieFactory.getZombie("Caminante",level,zombNodoLejano);
 
 		aGenerar.introducirse(zombNodoLejano.getAlFrente(), zombNodoLejano);
 		cantidadZombiesGenerados++;
@@ -453,10 +453,9 @@ public class SurvivorCamp implements Cloneable, Comparator<Puntaje> {
 						int direccionX = Integer.parseInt(datos[5]);
 						int direccionY = Integer.parseInt(datos[6]);
 						verificarDatosCaminante(direccionX, direccionY);
-						aAgregar = new Caminante(posX, posY, direccionX, direccionY, estadoActual, frameActual, salud,
-								ronda);
+						aAgregar = (Zombie) ZombieFactory.getZombie("Caminante",posX, posY, direccionX, direccionY, estadoActual, frameActual, salud, ronda);
 					} else if (datos.length == 5) {
-						aAgregar = new Rastrero(posX, posY, estadoActual, frameActual, salud, ronda);
+						aAgregar = (Zombie) ZombieFactory.getZombie("Rastrero", posX, posY, estadoActual, frameActual, salud, ronda);
 					}
 				}
 				if (aAgregar != null) {
