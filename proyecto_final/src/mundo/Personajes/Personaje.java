@@ -63,6 +63,14 @@ public class Personaje implements SerViviente, Serializable {
 		// municion = principal.getLimBalas();
 	}
 
+	public void releaseWeapons(){
+		WeaponPool.release(cuchillo);
+		WeaponPool.release(granadas);
+		WeaponPool.release(armaPrincipal);
+		WeaponPool.release(armaSecundaria);
+		WeaponPool.shutdown();
+	}
+
 	/*
 		* Singleton Pattern of type Initialization-on-demand holder idiom
 		* https://en.wikipedia.org/wiki/Initialization-on-demand_holder_idiom

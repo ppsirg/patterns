@@ -63,3 +63,4 @@
 2020-11-17T04:17:19.533355Z ZombieKillerGame has performed Read operation with the following file: zombies.txt
 2020-11-17T04:17:29.889746500Z ZombieKillerGame has performed Read operation with the following file: personaje.txt
 2020-11-17T04:17:29.897741800Z ZombieKillerGame has performed Read operation with the following file: zombies.txt
+2020-11-17T16:30:15.827157100Z ZombieKillerGame has performed Read operation with the following file: puntajes.txt
