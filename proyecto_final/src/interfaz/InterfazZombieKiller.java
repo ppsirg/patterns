@@ -132,7 +132,7 @@ public class InterfazZombieKiller extends JFrame {
 	public void iniciarNuevaPartida() {
 		if (campo.getEstadoJuego() != SurvivorCamp.SIN_PARTIDA) {
 			int respuesta = JOptionPane.showConfirmDialog(this,
-					"En este momento se encuentra en una partida, segudo que desea salir?", "Iniciar Nueva Partida",
+					"En este momento se encuentra en una partida, ¿seguro que desea salir?", "Iniciar Nueva Partida",
 					JOptionPane.YES_NO_OPTION);
 			if (respuesta == JOptionPane.YES_OPTION) {
 				campo.setEstadoJuego(SurvivorCamp.SIN_PARTIDA);
@@ -148,6 +148,7 @@ public class InterfazZombieKiller extends JFrame {
 	 * componentes visibles
 	 */
 	private void partidaIniciada() {
+		campo.getPersonaje().releaseWeapons();
 		setCursor(cursorCuchillo);
 		Puntaje actual = campo.getRaizPuntajes();
 		campo = new SurvivorCamp();

@@ -134,7 +134,7 @@ public class SurvivorCamp implements Cloneable, Comparator<Puntaje> {
 	 * Constructor de la clase principal del mundo
 	 */
 	public SurvivorCamp() {
-		personaje = Personaje.getInstance();
+		personaje = new Personaje();
 		// aEliminar = new ArrayList<Zombie>();
 		estadoJuego = SIN_PARTIDA;
 		rondaActual = 0;
