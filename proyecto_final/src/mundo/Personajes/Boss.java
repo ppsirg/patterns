@@ -15,14 +15,6 @@ public class Boss extends Enemigo implements SeMueveEnZigzag {
 	 */
 	public static final String DERROTADO = "derrotado";
 	/**
-	 * valor incambiable que representa la salud del jefe
-	 */
-	public static final byte SALUD = 16;
-	/**
-	 * valor incambiable que representa la lentitud del jefe
-	 */
-	public static final short LENTITUD = 14;
-	/**
 	 * valor incambiable que representa el ancho de la imagen del boss
 	 */
 	public static final int ANCHO_IMAGEN = 294;
@@ -46,10 +38,12 @@ public class Boss extends Enemigo implements SeMueveEnZigzag {
 	public Boss() {
 		super();
 		setEstadoActual(VOLANDO);
-		setSalud(SALUD);
-		setLentitud(LENTITUD);
+		EnemigoContexto enemigoBoss = EnemigoFactoria.getEnemigo("boss");
+		setSalud(enemigoBoss.getSalud(0));
+		setLentitud(enemigoBoss.getLentitud(0));
 		moverEnDireccion();
 	}
+
 	/**
 	 * Constructor del jefe al cargar la partida si fue guardada en la ronda del jefe
 	 * @param salud
@@ -57,10 +51,16 @@ public class Boss extends Enemigo implements SeMueveEnZigzag {
 	public Boss (byte salud) {
 		super();
 		setEstadoActual(VOLANDO);
-		setSalud(salud);
-		setLentitud(LENTITUD);
+		EnemigoContexto enemigoBoss = EnemigoFactoria.getEnemigo("boss", salud);
+		setSalud(enemigoBoss.getSalud(0));
+		setLentitud(enemigoBoss.getLentitud(0));
 		moverEnDireccion();
 	}
+
+	public static EnemigoContexto getEnemigo(){
+		return EnemigoFactoria.getEnemigo("boss");
+	}
+
 	@Override
 	public boolean recibeGranada() {
 		setSalud((byte) (getSalud() - Granada.DANIO));

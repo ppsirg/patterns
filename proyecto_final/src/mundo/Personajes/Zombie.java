@@ -1,42 +1,8 @@
 package mundo.Personajes;
 
 public abstract class Zombie extends Enemigo {
-	
 	/**
-	 * valor incambiable de la lentitud rango 1
-	 */
-	public static final short LENTITUD1 = 50;
-	/**
-	 * valor incambiable de la lentitud rango 2
-	 */
-	public static final short LENTITUD2 = 45;
-	/**
-	 * valor incambiable de la lentitud rango 3
-	 */
-	public static final short LENTITUD3 = 40;
-	/**
-	 * valor incambiable de la lentitud rango 4
-	 */
-	public static final short LENTITUD4 = 30;
-	
-	/**
-	 * valor incambiable de la salud rango 1
-	 */
-	public static final byte SALUD1 = 3;
-	/**
-	 * valor incambiable de la salud rango 2
-	 */
-	public static final byte SALUD2 = 5;
-	/**
-	 * valor incambiable de la salud rango 3
-	 */
-	public static final byte SALUD3 = 6;
-	/**
-	 * valor incambiable de la salud rango 4
-	 */
-	public static final byte SALUD4 = 8;
-	
-	/**
+	 *
 	 * caracteres que representan el estado Caminando del zombie
 	 */
 	public static final String CAMINANDO = "caminando";
@@ -90,6 +56,10 @@ public abstract class Zombie extends Enemigo {
 		determinarDificultadZombie(ronda);
 		setSalud(salud);
 	}
+
+	public static EnemigoContexto getEnemigo(){
+		return EnemigoFactoria.getEnemigo("zombie");
+	}
 	/**
 	 * Constructor de un zombie recién generado con respecto a la ronda actual
 	 * @param nivel
@@ -106,47 +76,48 @@ public abstract class Zombie extends Enemigo {
 	 * @param ronda
 	 */
 	public void determinarDificultadZombie (int ronda) {
+		EnemigoContexto enemy = EnemigoFactoria.getEnemigo("zombie");
 		switch (ronda) {
-		case 9:
-			setLentitud(LENTITUD3);
-			setSalud(SALUD4);
-			break;
-		case 8:
-			setLentitud(LENTITUD3);
-			setSalud(SALUD4);
-			break;
-		case 7:
-			setLentitud(LENTITUD4);
-			setSalud(SALUD2);
-			break;
-		case 6:
-			setLentitud(LENTITUD3);
-			setSalud(SALUD3);
-			break;
-		case 5:
-			setLentitud(LENTITUD3);
-			setSalud(SALUD2);
-			break;
-		case 4:
-			setLentitud(LENTITUD3);
-			setSalud(SALUD2);
-			break;
-		case 3:
-			setLentitud(LENTITUD2);
-			setSalud(SALUD2);
-			break;
-		case 2:
-			setLentitud(LENTITUD1);
-			setSalud(SALUD2);
-			break;
-		case 1:
-			setLentitud(LENTITUD1);
-			setSalud(SALUD1);
-			break;
-		default:
-			setLentitud(LENTITUD1);
-			setSalud(SALUD1);
-			break;
+			case 9:
+				setLentitud(enemy.getLentitud(2));//LENTITUD3
+				setSalud(enemy.getSalud(3));//SALUD4
+				break;
+			case 8:
+				setLentitud(enemy.getLentitud(2));//LENTITUD3
+				setSalud(enemy.getSalud(3));//SALUD4);
+				break;
+			case 7:
+				setLentitud(enemy.getLentitud(3));//LENTITUD4
+				setSalud(enemy.getSalud(1));//(SALUD2);
+				break;
+			case 6:
+				setLentitud(enemy.getLentitud(2));//LENTITUD3
+				setSalud(enemy.getSalud(2));//(SALUD3);
+				break;
+			case 5:
+				setLentitud(enemy.getLentitud(2));//LENTITUD3
+				setSalud(enemy.getSalud(1));//SALUD2);
+				break;
+			case 4:
+				setLentitud(enemy.getLentitud(2));//LENTITUD3
+				setSalud(enemy.getSalud(1));//(SALUD2);
+				break;
+			case 3:
+				setLentitud(enemy.getLentitud(1)); //LENTITUD2
+				setSalud(enemy.getSalud(1));//(SALUD2);
+				break;
+			case 2:
+				setLentitud(enemy.getLentitud(0));//LENTITUD1
+				setSalud(enemy.getSalud(1));//(SALUD2);
+				break;
+			case 1:
+				setLentitud(enemy.getLentitud(0));//LENTITUD1
+				setSalud(enemy.getSalud(0));//(SALUD1);
+				break;
+			default:
+				setLentitud(enemy.getLentitud(0));//LENTITUD1
+				setSalud(enemy.getSalud(0));//(SALUD1);
+				break;
 		}
 	}
 	/**

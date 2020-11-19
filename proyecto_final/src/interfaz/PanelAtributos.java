@@ -42,9 +42,10 @@ public class PanelAtributos extends JPanel {
 			if (atributos[i].equals("Daño"))
 				barValores[i].setMaximum(Granada.DANIO);
 			else if (atributos[i].equals("Salud"))
-				barValores[i].setMaximum(Boss.SALUD);
+				barValores[i].setMaximum(Boss.getEnemigo().getSalud(0));
 			else if (atributos[i].equals("Lentitud"))
-				barValores[i].setMaximum(Zombie.LENTITUD1);
+				//barValores[i].setMaximum(Zombie.LENTITUD1);
+				barValores[i].setMaximum(Zombie.getEnemigo().getLentitud(0));//LENTITUD1
 			else if (atributos[i].equals("Retroceso"))
 				barValores[i].setMaximum(Remington.RETROCESO + 100);
 			else if (atributos[i].equals("Tiempo de Carga"))
