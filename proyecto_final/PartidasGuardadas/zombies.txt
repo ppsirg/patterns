@@ -1,5 +1,0 @@
-/salud/posX/posY/estado/frame/dirX/dirY
-3_811_330_caminando_20_4_2
-3_369_368_caminando_1_-1_3
-3_406_252_caminando_6_-2_2
-3_589_198_caminando_4_-2_2
